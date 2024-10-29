@@ -1,0 +1,63 @@
+import wollok.game.*
+import player.*
+import enemigos.*
+
+program GalagaGame {
+	game.title("Galga")
+	const enemigo1 = (new EnemigoFuerte(position = game.at(40,40))) // PRUEBA DE MOVIMIENTO
+	game.addVisual(enemigo1)
+	game.height(50) // alto del tablero
+	game.width(50) // ancho del tablero
+	game.boardGround("3ta.gif")
+	game.addVisual(nave)
+	game.addVisual(new EnemigoDevil(position = game.at(10,30)))
+	game.addVisual(new EnemigoMediano(position = game.at(20,30)))
+	game.addVisual(new EnemigoFuerte(position = game.at(35,30)))
+	game.cellSize(50) // aca se setea el tamaña de las celdas "CREO"
+	configurarTeclas.iniciar1()
+	
+	movimientos.moverEnemigoIzq1(enemigo1) // PRUEBA DE MOVIMIENTO
+
+	game.start()
+}
+
+object configurarTeclas{
+	method iniciar() {
+		keyboard.a().onPressDo({
+			if (0 < nave.position().x()){
+				nave.moverseA(nave.position().left(1))
+			}
+		})
+		keyboard.d().onPressDo({
+			if (game.width()-1 > nave.position().x()){
+				nave.moverseA(nave.position().right(1))
+			}
+		})
+	}
+
+	method iniciar1(){ //2do tipo de configuracion de las teclas
+		keyboard.d().onPressDo({nave.moverDerecha()})
+		keyboard.a().onPressDo({nave.moverIzquierda()})
+	}
+}
+
+object movimientos{ // PRUEBA DE MOVIMIENTOS
+	method moverEnemigoIzq1(unEnemigo){
+		game.onTick(500, "moverEnemigo",
+        {unEnemigo.moverIzquierda()})
+	}
+	method moverEnemigoDer1(unEnemigo){
+		game.onTick(500, "moverEnemigo",
+        {unEnemigo.moverDerecha()})
+	}
+	method cambiarMovimiento(unEnemigo){
+		if (0 == unEnemigo.position().x()){
+			game.removeTickEvent("moveteEnemigo")
+			self.moverEnemigoDer1(unEnemigo)
+		}
+		if (game.width()-1 == unEnemigo.position().x()){
+			game.removeTickEvent("moveteEnemigo")
+			self.moverEnemigoIzq1(unEnemigo)
+		}
+	}
+}
