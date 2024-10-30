@@ -4,7 +4,7 @@ import enemigos.*
 
 program GalagaGame {
 	game.title("Galga")
-	const enemigo1 = (new EnemigoFuerte(position = game.at(40,40))) // PRUEBA DE MOVIMIENTO
+	const enemigo1 = (new EnemigoFuerte(position = game.at(0,40))) // PRUEBA DE MOVIMIENTO
 	game.addVisual(enemigo1)
 	game.height(50) // alto del tablero
 	game.width(50) // ancho del tablero
@@ -16,7 +16,7 @@ program GalagaGame {
 	game.cellSize(50) // aca se setea el tamaña de las celdas "CREO"
 	configurarTeclas.iniciar1()
 	
-	movimientos.moverEnemigoIzq1(enemigo1) // PRUEBA DE MOVIMIENTO
+	movimientos.cambiarMovimiento1(enemigo1) // PRUEBA DE MOVIMIENTO
 
 	game.start()
 }
@@ -42,22 +42,50 @@ object configurarTeclas{
 }
 
 object movimientos{ // PRUEBA DE MOVIMIENTOS
-	method moverEnemigoIzq1(unEnemigo){
-		game.onTick(500, "moverEnemigo",
+	var movimiento = false
+	method moverEnemigoIzq1(unEnemigo){ // mueve a la iuzquierda
+		game.onTick(500, "moveteEnemigoIzq",
         {unEnemigo.moverIzquierda()})
 	}
-	method moverEnemigoDer1(unEnemigo){
-		game.onTick(500, "moverEnemigo",
+	method moverEnemigoDer1(unEnemigo){ // mueve a la derecha
+		game.onTick(500, "moverEnemigoDer",
         {unEnemigo.moverDerecha()})
 	}
-	method cambiarMovimiento(unEnemigo){
+
+	
+	method cambiarMovimiento(unEnemigo){ // 1ER INTENTO DE MOVIMIENTO
+		self.moverEnemigoIzq1(unEnemigo)
 		if (0 == unEnemigo.position().x()){
-			game.removeTickEvent("moveteEnemigo")
-			self.moverEnemigoDer1(unEnemigo)
+			game.removeTickEvent("moveteEnemigoIzq")
+		self.moverEnemigoDer1(unEnemigo)
 		}
 		if (game.width()-1 == unEnemigo.position().x()){
-			game.removeTickEvent("moveteEnemigo")
-			self.moverEnemigoIzq1(unEnemigo)
+			game.removeTickEvent("moverEnemigoDer")
+		self.moverEnemigoIzq1(unEnemigo)
+		}
+	}
+	method activarMovimiento(unEnemigo){ // PARTE DEL 1ER INTENTO DE MOVIEMIENTO
+		keyboard.up().onPressDo({self.cambiarMovimiento1(unEnemigo)})
+		//keyboard.a().onPressDo({self.cambiarMovimiento(unEnemigo)})
+	}
+
+
+
+	method cambiarMovimiento1(unEnemigo){ // 2DO INTENTO DE MOVIMIENTO
+		if (0 == unEnemigo.position().x() and (not movimiento)){
+			game.removeTickEvent("moveteEnemigoIzq")
+			self.moverEnemigoDer1(unEnemigo)
+		movimiento = true
+		self.cambiarMovimiento2(unEnemigo)
+		}
+	}
+	method cambiarMovimiento2(unEnemigo){ // PARTE DEL 2DO INTENTO DE MOVIMIENTO
+		if (game.width()-1 == unEnemigo.position().x() and movimiento){
+			game.removeTickEvent("moverEnemigoDer")
+		self.moverEnemigoIzq1(unEnemigo)
+		movimiento = false
+		self.cambiarMovimiento1(unEnemigo)
 		}
 	}
 }
+
