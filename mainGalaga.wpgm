@@ -14,10 +14,9 @@ program GalagaGame {
 	game.addVisual(new EnemigoMediano(position = game.at(20,30)))
 	game.addVisual(new EnemigoFuerte(position = game.at(35,30)))
 	game.cellSize(50) // aca se setea el tamaña de las celdas "CREO"
-	configurarTeclas.iniciar1()
+	configurarTeclas.iniciarNave()
+	movimientos.cambiarMovimiento2(enemigo1) // PRUEBA DE MOVIMIENTO
 	
-	movimientos.cambiarMovimiento1(enemigo1) // PRUEBA DE MOVIMIENTO
-
 	game.start()
 }
 
@@ -35,9 +34,10 @@ object configurarTeclas{
 		})
 	}
 
-	method iniciar1(){ //2do tipo de configuracion de las teclas
+	method iniciarNave(){ //2do tipo de configuracion de las teclas
 		keyboard.d().onPressDo({nave.moverDerecha()})
 		keyboard.a().onPressDo({nave.moverIzquierda()})
+		keyboard.up().onPressDo({nave.disparar()})
 	}
 }
 
@@ -52,7 +52,7 @@ object movimientos{ // PRUEBA DE MOVIMIENTOS
         {unEnemigo.moverDerecha()})
 	}
 
-	
+
 	method cambiarMovimiento(unEnemigo){ // 1ER INTENTO DE MOVIMIENTO
 		self.moverEnemigoIzq1(unEnemigo)
 		if (0 == unEnemigo.position().x()){
@@ -79,7 +79,7 @@ object movimientos{ // PRUEBA DE MOVIMIENTOS
 		self.cambiarMovimiento2(unEnemigo)
 		}
 	}
-	method cambiarMovimiento2(unEnemigo){ // PARTE DEL 2DO INTENTO DE MOVIMIENTO
+	method cambiarMovimiento2(unEnemigo){ // PARTE DEL 2DO INTENTO DE MOVIEMIENTO
 		if (game.width()-1 == unEnemigo.position().x() and movimiento){
 			game.removeTickEvent("moverEnemigoDer")
 		self.moverEnemigoIzq1(unEnemigo)
@@ -88,4 +88,3 @@ object movimientos{ // PRUEBA DE MOVIMIENTOS
 		}
 	}
 }
-
