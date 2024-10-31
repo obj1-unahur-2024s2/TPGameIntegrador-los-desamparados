@@ -3,25 +3,27 @@ import player.*
 import enemigos.*
 
 program GalagaGame {
-	game.title("Galga")
-	const enemigo1 = (new EnemigoFuerte(position = game.at(0,40))) // PRUEBA DE MOVIMIENTO
+	game.title("Galaga")
+	const enemigo1 = (new EnemigoFuerte(position = game.at(0,40)))
+	const enemigo2 = (new EnemigoMediano(position = game.at(50,35)))
+	const enemigo3 = (new EnemigoDevil(position = game.at(25,30)))
 	game.addVisual(enemigo1)
+	game.addVisual(enemigo2)
+	game.addVisual(enemigo3)
 	game.height(50) // alto del tablero
 	game.width(50) // ancho del tablero
 	game.boardGround("3ta.gif")
 	game.addVisual(nave)
-	game.addVisual(new EnemigoDevil(position = game.at(10,30)))
-	game.addVisual(new EnemigoMediano(position = game.at(20,30)))
-	game.addVisual(new EnemigoFuerte(position = game.at(35,30)))
 	game.cellSize(50) // aca se setea el tamaña de las celdas "CREO"
 	configurarTeclas.iniciarNave()
-	movimientos.cambiarMovimiento2(enemigo1) // PRUEBA DE MOVIMIENTO
-	
+	controlEnemigo.cambiarDireccionIzquierda(enemigo2)
+	controlEnemigo.cambiarDireccionDerecha(enemigo3)
+	controlEnemigo.cambiarDireccionDerecha(enemigo1)
 	game.start()
 }
 
 object configurarTeclas{
-	method iniciar() {
+	method iniciar() { // otro metodo para mover la nave
 		keyboard.a().onPressDo({
 			if (0 < nave.position().x()){
 				nave.moverseA(nave.position().left(1))
@@ -34,57 +36,31 @@ object configurarTeclas{
 		})
 	}
 
-	method iniciarNave(){ //2do tipo de configuracion de las teclas
+	method iniciarNave(){ // metodo implementado para iniciar la nave
 		keyboard.d().onPressDo({nave.moverDerecha()})
 		keyboard.a().onPressDo({nave.moverIzquierda()})
 		keyboard.up().onPressDo({nave.disparar()})
 	}
 }
 
-object movimientos{ // PRUEBA DE MOVIMIENTOS
-	var movimiento = false
-	method moverEnemigoIzq1(unEnemigo){ // mueve a la iuzquierda
-		game.onTick(500, "moveteEnemigoIzq",
-        {unEnemigo.moverIzquierda()})
-	}
-	method moverEnemigoDer1(unEnemigo){ // mueve a la derecha
-		game.onTick(500, "moverEnemigoDer",
-        {unEnemigo.moverDerecha()})
-	}
+object controlEnemigo {
+    method cambiarDireccionIzquierda(unEnemigo){
+        game.onTick(500, "izquierda", {
+            unEnemigo.moveteIquierda()
+            if (unEnemigo.estoyBordeIzquierdo()){
+                game.removeTickEvent("izquierda")
+                self.cambiarDireccionDerecha(unEnemigo)
+            }
+        })
+    }
 
-
-	method cambiarMovimiento(unEnemigo){ // 1ER INTENTO DE MOVIMIENTO
-		self.moverEnemigoIzq1(unEnemigo)
-		if (0 == unEnemigo.position().x()){
-			game.removeTickEvent("moveteEnemigoIzq")
-		self.moverEnemigoDer1(unEnemigo)
-		}
-		if (game.width()-1 == unEnemigo.position().x()){
-			game.removeTickEvent("moverEnemigoDer")
-		self.moverEnemigoIzq1(unEnemigo)
-		}
-	}
-	method activarMovimiento(unEnemigo){ // PARTE DEL 1ER INTENTO DE MOVIEMIENTO
-		keyboard.up().onPressDo({self.cambiarMovimiento1(unEnemigo)})
-		//keyboard.a().onPressDo({self.cambiarMovimiento(unEnemigo)})
-	}
-
-
-
-	method cambiarMovimiento1(unEnemigo){ // 2DO INTENTO DE MOVIMIENTO
-		if (0 == unEnemigo.position().x() and (not movimiento)){
-			game.removeTickEvent("moveteEnemigoIzq")
-			self.moverEnemigoDer1(unEnemigo)
-		movimiento = true
-		self.cambiarMovimiento2(unEnemigo)
-		}
-	}
-	method cambiarMovimiento2(unEnemigo){ // PARTE DEL 2DO INTENTO DE MOVIEMIENTO
-		if (game.width()-1 == unEnemigo.position().x() and movimiento){
-			game.removeTickEvent("moverEnemigoDer")
-		self.moverEnemigoIzq1(unEnemigo)
-		movimiento = false
-		self.cambiarMovimiento1(unEnemigo)
-		}
-	}
+    method cambiarDireccionDerecha(unEnemigo){
+        game.onTick(500, "derecha", {
+            unEnemigo.moveteDerecha()
+            if (unEnemigo.estoyBordeDerecho()){
+                game.removeTickEvent("derecha")
+                self.cambiarDireccionIzquierda(unEnemigo)
+            }
+        })
+    }
 }

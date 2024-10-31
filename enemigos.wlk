@@ -1,23 +1,29 @@
 import player.*
+import wollok.game.*
 class Enemigo{
     var vida = 100
-    var position // aca se seta la ubicacion inicial del personaje
+    var property position // aca se seta la ubicacion inicial del personaje
     method vida() = vida
     method position() = position
     method moverse(nuevaPos){
         position = nuevaPos
     }
     method quitarVida(){
-        vida = 0.max(vida - tiro.poderDisparo())
+        vida = 0.max(vida - Disparo.poderDisparo())
         game.say(self, "Me queda " + self.vida() + " de salud")
         self.eliminar()
     }
-    method moverIzquierda() {
-        position = game.at(0.max(position.x() - 1), position.y()) 
+    method moveteDerecha() {
+        position = position.right(1)
     }
-    method moverDerecha() {
-        position = game.at((game.width() - 1).min(position.x() + 1), position.y())
+
+    method moveteIquierda() {
+        position = position.left(1)
     }
+
+    method estoyBordeDerecho()= position.x() == game.width() - 1
+    method estoyBordeIzquierdo()= position.x() == 0
+
     method eliminar(){
         if (vida == 0) game.removeVisual(self)
     }

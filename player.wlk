@@ -16,6 +16,7 @@ object nave {
         const tiro = new Disparo(position = position.up(1))
         game.addVisual(tiro)
         tiro.desplazarse()
+        tiro.moverseArriba()
     }
 }
 
@@ -29,8 +30,8 @@ class Disparo{
     }
 
     method desplazarse(){
-        game.onCollideDo(self, {accion => accion.quitarVida()})
         game.onTick(50, "disparar",{self.moverDisparo()})
+        game.onCollideDo(self, {accion => accion.quitarVida()})
     }
     method moverseArriba(){
         if (position.y() > game.height()){
