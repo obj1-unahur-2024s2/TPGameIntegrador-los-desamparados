@@ -29,13 +29,13 @@ class Disparo{
         position = game.at(position.x(), position.y() + 1)
     }
 
-    method desplazarse(){
-        game.onTick(50, "disparar",{self.moverDisparo()})
-        game.onCollideDo(self, {accion => accion.quitarVida()})
-    }
-    method moverseArriba(){
-        if (position.y() > game.height()){
-            game.removeTickEvent("disparar")
-            game.removeVisual(self)}
+   method desplazarse() {
+        game.onTick(50, "disparar", {
+            self.moverDisparo()
+            game.onCollideDo(self, { enemigo => 
+                enemigo.quitarVida() // Llamamos a quitarVida() solo en el enemigo
+                game.removeVisual(self) // Eliminamos el disparo // Elimina el disparo al colisionar
+            })
+        })
     }
 }

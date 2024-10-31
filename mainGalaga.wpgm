@@ -39,7 +39,7 @@ object configurarTeclas{
 	method iniciarNave(){ // metodo implementado para iniciar la nave
 		keyboard.d().onPressDo({nave.moverDerecha()})
 		keyboard.a().onPressDo({nave.moverIzquierda()})
-		keyboard.up().onPressDo({nave.disparar()})
+		keyboard.w().onPressDo({nave.disparar()})
 	}
 }
 

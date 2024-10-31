@@ -8,10 +8,11 @@ class Enemigo{
     method moverse(nuevaPos){
         position = nuevaPos
     }
-    method quitarVida(){
+    method quitarVida() {
         vida = 0.max(vida - Disparo.poderDisparo())
-        game.say(self, "Me queda " + self.vida() + " de salud")
-        self.eliminar()
+        if (vida <= 0) {
+            game.removeVisual(self) // Elimina el enemigo si la vida llega a 0
+        }
     }
     method moveteDerecha() {
         position = position.right(1)
