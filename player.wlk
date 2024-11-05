@@ -1,3 +1,4 @@
+import niveles.*
 import wollok.game.*
 
 object nave {
@@ -24,12 +25,15 @@ class Disparo{
     method image() = "disparo.png" 
     method position() = position
     method moverDisparo() {
-        position = game.at(position.x(), position.y() + 1)
+            position = position.up(1)
     }
 
     method desplazarse(enemigo) {
         game.onTick(10, "disparar", {
-            self.moverDisparo()
+            if (self.position().y() == game.height() - 8)
+                self.eliminarDisparo()
+            else
+                self.moverDisparo()
             game.onCollideDo(self, { enemigo => 
                 enemigo.quitarVida(self) // Llamamos a quitarVida() solo en el enemigo
                 self.eliminarDisparo()

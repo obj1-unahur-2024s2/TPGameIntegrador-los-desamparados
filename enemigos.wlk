@@ -1,5 +1,6 @@
 import player.*
 import wollok.game.*
+
 class Enemigo{
     var property position // aca se seta la ubicacion inicial del personaje
 
