@@ -5,14 +5,16 @@ import posicionable.*
 
 class Enemigo inherits Posicionable{
 
+    const eventName = "EvenName-" + (0..100).anyOne()
     method inicializar(){
         game.onCollideDo(self, { disparo => 
             self.quitarVida(disparo) 
             disparo.eliminarDisparo()
         })
-        game.onTick(300, "evenName" + 0.randomUpTo(10), {
+        game.onTick(300, eventName, {
             self.moverse()
         })
+
     }
   
     method quitarVida(unDisparo) {
@@ -21,6 +23,7 @@ class Enemigo inherits Posicionable{
  
     method eliminar(){
         game.removeVisual(self)
+        game.removeTickEvent(eventName)
     }
 
 }

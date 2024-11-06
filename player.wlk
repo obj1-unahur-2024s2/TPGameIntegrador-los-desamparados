@@ -3,12 +3,13 @@ import wollok.game.*
 
 object nave inherits Posicionable(orientacion=left, position=game.origin()){
     var disparosEnTablero = 0
+    const rango = (0..10000)
 
     method image() = "nave.png" 
         
     method disparar(){
         if(disparosEnTablero<=5) {
-            const tiro = new Disparo(position = position.up(1), orientacion=up)
+            const tiro = new Disparo(position = position.up(1), orientacion=up, eventName="E-" + rango.anyOne())
             disparosEnTablero += 1
             game.addVisual(tiro)
         }
@@ -37,8 +38,7 @@ object nave inherits Posicionable(orientacion=left, position=game.origin()){
 class Disparo inherits Posicionable{
 
     const property poderDisparo = 20 
-    const property eventName = "EventName" + 0.randomUpTo(5000)
-
+    const property eventName 
     method image() = "disparo.png" 
    
     method initialize() {
