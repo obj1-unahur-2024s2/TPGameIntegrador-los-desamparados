@@ -1,30 +1,28 @@
 import player.*
 import wollok.game.*
+import niveles.*
+import posicionable.*
 
-class Enemigo{
-    var property position // aca se seta la ubicacion inicial del personaje
+class Enemigo inherits Posicionable{
 
-    method position() = position
-    method moverse(nuevaPos){
-        position = nuevaPos
+    method inicializar(){
+        game.onCollideDo(self, { disparo => 
+            self.quitarVida(disparo) 
+            disparo.eliminarDisparo()
+        })
+        game.onTick(300, "evenName" + 0.randomUpTo(10), {
+            self.moverse()
+        })
     }
+  
     method quitarVida(unDisparo) {
         self.eliminar()
     }
-    method moveteDerecha() {
-        position = position.right(1)
-    }
-
-    method moveteIquierda() {
-        position = position.left(1)
-    }
-
-    method estoyBordeDerecho()= position.x() == game.width() - 1
-    method estoyBordeIzquierdo()= position.x() == 0
-
+ 
     method eliminar(){
         game.removeVisual(self)
     }
+
 }
 
 class EnemigoDevil inherits Enemigo{

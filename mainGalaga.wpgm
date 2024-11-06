@@ -5,11 +5,13 @@ import niveles.*
 
 program GalagaGame {
 	game.title("Galaga")
-	game.height(50) // alto del tablero
-	game.width(50) // ancho del tablero
-	game.cellSize(50) // aca se setea el tamaña de las celdas "CREO"
-	keyboard.space().onPressDo({game.stop()})
-	nivelUno.iniciar()
+	game.width(14)
+	game.height(14)
+	game.boardGround("3ta.gif")
+	game.cellSize(300) 
+	nivelUno.inicializar()
+	keyboard.space().onPressDo(	{ 
+		game.stop()
+	})
 	game.start()
 }
-

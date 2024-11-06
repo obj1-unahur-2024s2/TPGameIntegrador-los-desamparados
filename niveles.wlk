@@ -1,66 +1,31 @@
 import wollok.game.*
 import player.*
 import enemigos.*
+import posicionable.*
 
 object nivelUno {
     const property enemigos = []
+  
+    method inicializar() {
+        game.addVisual(nave)
+        self.agregarEnemigos()
+        self.configurarTeclas()
+    }
 
     method agregarEnemigos() {
-        enemigos.add(new EnemigoFuerte(position = game.at(5,30)))
-        enemigos.add(new EnemigoMediano(position = game.at(15,40)))
-        enemigos.add(new EnemigoDevil(position = game.at(25,20)))
-    }
-
-    method agregarVisuales() {
-        enemigos.forEach({e => game.addVisual(e)})
-    }
-
-    method agregarControles() {
-       enemigos.forEach({e => controlEnemigo.cambiarDireccionDerecha(e)}) 
-    }
-
-    method initialize() {
-        self.agregarEnemigos()
-        self.agregarVisuales()
-        self.agregarControles()
-        game.addVisual(nave)
-        game.boardGround("3ta.gif")
-        configurarTeclas.iniciarNave()
-    }
-
-    method iniciar(){
-	    keyboard.w().onPressDo({
-            nave.disparar(enemigos.first())
+        enemigos.add(new EnemigoMediano(position = game.at(2,13), orientacion = right))
+        enemigos.add(new EnemigoFuerte(position = game.at(12,12), orientacion= left))
+        enemigos.add(new EnemigoDevil(position = game.at(5,11), orientacion=right))
+        enemigos.add(new EnemigoMediano(position = game.at(7,10), orientacion=left))
+        enemigos.forEach({e => 
+            game.addVisual(e)
+            e.inicializar()  
         })
-        
     }
-}
 
-object configurarTeclas{
-	method iniciarNave(){ // metodo implementado para iniciar la nave
+    method configurarTeclas(){
 		keyboard.d().onPressDo({nave.moverDerecha()})
 		keyboard.a().onPressDo({nave.moverIzquierda()})
-	}
-}
-
-object controlEnemigo {
-    method cambiarDireccionIzquierda(unEnemigo){
-        game.onTick(250, "izquierda", {
-            unEnemigo.moveteIquierda()
-            if (unEnemigo.estoyBordeIzquierdo()){
-                game.removeTickEvent("izquierda")
-                self.cambiarDireccionDerecha(unEnemigo)
-            }
-        })
-    }
-
-    method cambiarDireccionDerecha(unEnemigo){
-        game.onTick(250, "derecha", {
-            unEnemigo.moveteDerecha()
-            if (unEnemigo.estoyBordeDerecho()){
-                game.removeTickEvent("derecha")
-                self.cambiarDireccionIzquierda(unEnemigo)
-            }
-        })
+		keyboard.w().onPressDo({nave.disparar()})
     }
 }
