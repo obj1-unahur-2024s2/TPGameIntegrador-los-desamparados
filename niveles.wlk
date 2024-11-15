@@ -3,10 +3,14 @@ import player.*
 import enemigos.*
 import posicionable.*
 
+
+// cuando se crean los enemigos, se ingresan a la lista de enemigos. lo que habria que hacer es que a medida que se van eliminando los enemigos, la lista se valla vaciando y cuando la lista
+// esta vacia ahi que cambie el siguiente nivel.
 object nivelUno {
     const property enemigos = []
   
-    method inicializar() {
+    method inicializar(){
+        self.sonidoInicio()
         game.addVisual(nave)
         self.agregarEnemigos()
         self.configurarTeclas()
@@ -28,4 +32,14 @@ object nivelUno {
 		keyboard.a().onPressDo({nave.moverIzquierda()})
 		keyboard.w().onPressDo({nave.disparar()})
     }
+
+    method sonidoInicio(){	
+		const inicio = game.sound("inicio.mp3")
+		inicio.play()
+		inicio.volume(0.5)
+	}
+}
+
+object nivelDos {
+
 }
