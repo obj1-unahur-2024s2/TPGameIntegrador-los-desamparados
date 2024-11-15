@@ -25,6 +25,7 @@ class Enemigo inherits Posicionable{
         game.removeVisual(self)
         game.removeTickEvent(eventName)
         self.sonidoMuerte()
+        nivelUno.eliminarEnemigo(self) //esto lo que hace es eliminar al enemigo de la lista
     }
 
     method sonidoMuerte(){	

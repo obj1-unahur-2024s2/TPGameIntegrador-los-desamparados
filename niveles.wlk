@@ -14,6 +14,12 @@ object nivelUno {
         game.addVisual(nave)
         self.agregarEnemigos()
         self.configurarTeclas()
+        game.onTick(100,"pasarNivel", { //con este on tick esta constantemente preguntando si la lista esta vacia para cambiar al proximo nivel, revisar dado que no se si esta correcto, 
+            if (self.enemigodEliminados()){ // pero calculo que si es correcto
+            nivelDos.inicializar()
+            game.removeTickEvent("pasarNivel")
+            }
+        })
     }
 
     method agregarEnemigos() {
@@ -38,8 +44,16 @@ object nivelUno {
 		inicio.play()
 		inicio.volume(0.5)
 	}
+    method eliminarEnemigo(unEnemigo){ // aca habria que configurar o ver cual es la instancia de enemigo creada al momento que el disparo le pega para eliminarlo de la lista!!
+        enemigos.remove(unEnemigo)     // nose si se puede poner enemigos.remove().first() que es para que elimine el primer enemigo de la lista
+    }
+    method enemigodEliminados(){
+        return enemigos.size() == 0
+    }
 }
 
 object nivelDos {
+    method inicializar(){
 
+    }
 }
