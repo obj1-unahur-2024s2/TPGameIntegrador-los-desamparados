@@ -47,5 +47,6 @@ Galaga no solo se ganó el reconocimiento de los jugadores por su jugabilidad ad
 ## Otros
 
 - Trabajo Práctico Integrador de la materia Programación con Objetos I, de la Universidad Nacional de Hurlingham - UNAHUR
+- Proyecto Wollok - Año 2024
 
 
