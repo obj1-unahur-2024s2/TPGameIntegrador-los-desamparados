@@ -12,6 +12,7 @@ object nave inherits Posicionable(orientacion=left, position=game.origin()){
             const tiro = new Disparo(position = position.up(1), orientacion=up, eventName="E-" + rango.anyOne())
             disparosEnTablero += 1
             game.addVisual(tiro)
+            tiro.sonidoDisparo()
         }
     }
 
@@ -58,5 +59,11 @@ class Disparo inherits Posicionable{
         else
             self.eliminarDisparo()
     }
+
+    method sonidoDisparo(){	
+		const disparo = game.sound("disparo.mp3")
+			disparo.play()
+			disparo.volume(0.5)
+	}
 }
 
