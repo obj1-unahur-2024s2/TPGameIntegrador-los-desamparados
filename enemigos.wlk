@@ -37,14 +37,14 @@ class Enemigo inherits Posicionable{
 }
 
 class EnemigoDevil inherits Enemigo{
-    method image() = "Enemigo.png" 
+    method image() = "enemigo60px.png" 
 
 }
 
 class EnemigoMediano inherits Enemigo{
-    method image() = "Enemigo1.png" 
+    method image() = "enemigoA60px.png" 
 }
 
 class EnemigoFuerte inherits Enemigo{
-    method image() = "Enemigo2.png" 
+    method image() = "enemigoB60px.png" 
 }

@@ -5,7 +5,7 @@ object nave inherits Posicionable(orientacion=left, position=game.origin()){
     var disparosEnTablero = 0
     const rango = (0..10000)
 
-    method image() = "nave.png" 
+    method image() = "nave90px.png" 
         
     method disparar(){
         if(disparosEnTablero<=5) {
@@ -40,7 +40,7 @@ class Disparo inherits Posicionable{
 
     const property poderDisparo = 20 
     const property eventName 
-    method image() = "disparo.png" 
+    method image() = "disparo40px.png" 
    
     method initialize() {
         game.onTick(100, eventName , {
