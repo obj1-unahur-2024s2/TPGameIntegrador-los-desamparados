@@ -1,6 +1,8 @@
-GALAGA
+## GALAGA
+
 
 ![demo](./video/GalagaGif.gif)
+
 
 
 ## Tabla de contenidos
@@ -10,6 +12,8 @@ GALAGA
 - [Impacto en la cultura del videojuego](#Impacto)
 - [Equipo de desarrollo](#Equipo)
 - [Otros](#Otros)
+
+
 
 
 ## Descripción 
