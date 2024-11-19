@@ -50,7 +50,7 @@ class EnemigoFuerte inherits Enemigo{
 }
 
 class EnemigoJefe inherits Enemigo{
-    var vida = 3
+    var vida = 5
     method image() = "jefeB200px.png"
 
     override method quitarVida(unDisparo) {
