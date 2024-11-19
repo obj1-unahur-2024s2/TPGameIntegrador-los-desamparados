@@ -4,10 +4,6 @@ import enemigos.*
 import posicionable.*
 import visuales.*
 
-// cuando se crean los enemigos, se ingresan a la lista de enemigos. lo que habria que hacer es que a medida que se van eliminando los enemigos, la lista se valla vaciando y cuando la lista
-// esta vacia ahi que cambie el siguiente nivel.
-
-
 object juego {
     const property enemigos = []
     var puntuacion = 0
@@ -23,8 +19,8 @@ object juego {
     method iniciarJuego() {
         self.prepararNivel()
         self.agregarEnemigos()
-        game.onTick(100,"pasarNivel", { //con este on tick esta constantemente preguntando si la lista esta vacia para cambiar al proximo nivel, revisar dado que no se si esta correcto, 
-            if (puntuacion == enemigos.size()){ // pero calculo que si es correcto
+        game.onTick(100,"pasarNivel", { 
+            if (puntuacion == enemigos.size()){ 
                 self.IniciarSegundoNivel()
                 game.removeTickEvent("pasarNivel")
                 }
@@ -86,7 +82,7 @@ object juego {
         game.addVisual(nave)
         self.configurarTeclas()
     }
-    
+
     method IniciarSegundoNivel() { 
         enemigos.clear()
         puntuacion = 0
@@ -95,8 +91,8 @@ object juego {
             game.addVisual(e)
             e.inicializar()
         })
-        game.onTick(100,"final", { //con este on tick esta constantemente preguntando si la lista esta vacia para cambiar al proximo nivel, revisar dado que no se si esta correcto, 
-            if (puntuacion == enemigos.size()){ // pero calculo que si es correcto
+        game.onTick(100,"final", { 
+            if (puntuacion == enemigos.size()){ 
                 self.mostrarFinal()
                 game.removeTickEvent("final")
                 }
@@ -107,8 +103,8 @@ object juego {
     method mostrarFinal() {
         game.clear()
         game.title("Galaga")
-	    game.width(14)
-	    game.height(18)
+	    game.width(20)
+	    game.height(25)
 	    game.boardGround("fondoVacio462px.png")
 	    game.cellSize(42)
         game.addVisual(imagenFinal)

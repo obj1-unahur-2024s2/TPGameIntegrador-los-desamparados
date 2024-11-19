@@ -28,6 +28,7 @@ El juego Galaga hecho con Wollok-Game. El jugador controla una nave que debe enf
 - Al iniciar el juego presionar "Enter" para comenzar.
 - El avión se desplaza hacia la derecha presionando la tecla "d" y hacia la izquierda presionando la tecla "a".
 - El avión dispara al enemigo presionando la tecla "w".
+- Para derrotar a los jefes finales, deberan de golpear su punto más debil. Cual es su punto debil? Bueno si apuntas a su pie derecho posiblemente tengas mas chances de matarlo, ya que su cuerpo tiene un blindaje que evade los disparos.
 
 
 
