@@ -32,6 +32,7 @@ object juego {
 		keyboard.d().onPressDo({nave.moverDerecha()})
 		keyboard.a().onPressDo({nave.moverIzquierda()})
 		keyboard.w().onPressDo({nave.disparar()})
+        keyboard.space().onPressDo({game.stop()})
     }
     
     method sonidoInicio(){	
