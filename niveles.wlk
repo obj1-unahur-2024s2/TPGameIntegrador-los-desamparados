@@ -29,19 +29,12 @@ object juego {
         })
         game.onTick(100,"pasarNivel", { //con este on tick esta constantemente preguntando si la lista esta vacia para cambiar al proximo nivel, revisar dado que no se si esta correcto, 
             if (puntuacion == enemigos.size()){ // pero calculo que si es correcto
-                self.nivelDos()
+                nivelDos.IniciarSegundoNivel()
                 game.removeTickEvent("pasarNivel")
                 }
             }
         )
     }
-
-
-
-    method nivelUno(){
-        
-    }
-
 
     method configurarTeclas(){
 		keyboard.d().onPressDo({nave.moverDerecha()})
@@ -60,20 +53,6 @@ object juego {
     }
     method puntuacion() = puntuacion
 
-    method nivelDos() {
-        game.onTick(100,"final", {
-            if (puntuacion == enemigos.size()){
-                game.clear()
-                game.title("Galaga")
-	            game.width(14)
-	            game.height(18)
-	            game.boardGround("gameOver462px.png")
-	            game.cellSize(42) 
-                game.removeTickEvent("final")
-            }
-        })
-    }
-
     method agregarEnemigos() {
         enemigos.add(new EnemigoMediano(position = game.at(2,13), orientacion = right))
         enemigos.add(new EnemigoFuerte(position = game.at(12,12), orientacion= left))
@@ -84,49 +63,12 @@ object juego {
             e.inicializar()  
         })
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+    method agregarJefes() {
+        enemigos.add(new EnemigoJefe(position = game.at(2,13), orientacion = right))
+        enemigos.add(new EnemigoJefe(position = game.at(4,12), orientacion = right))
+        enemigos.add(new EnemigoJefe(position = game.at(6,11), orientacion = right))
+    }
 
     method prepararPresentacion(){
 		game.title("Galaga")
@@ -148,4 +90,29 @@ object juego {
         self.configurarTeclas()
     }
 
+}
+
+object nivelDos {
+    
+    method IniciarSegundoNivel() { 
+        juego.prepararNivel()
+        juego.enemigos().clear()
+        juego.agregarJefes()
+        juego.enemigos.forEach({e => 
+            game.addVisual(e)
+            e.inicializar()
+        })
+        game.onTick(100,"final", { //con este on tick esta constantemente preguntando si la lista esta vacia para cambiar al proximo nivel, revisar dado que no se si esta correcto, 
+            if (juego.puntuacion == juego.enemigos.size()){ // pero calculo que si es correcto
+                final
+                game.removeTickEvent("final")
+                }
+            }
+        )
+    
+    }       
+}
+
+object final {
+    
 }

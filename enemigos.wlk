@@ -48,3 +48,20 @@ class EnemigoMediano inherits Enemigo{
 class EnemigoFuerte inherits Enemigo{
     method image() = "enemigoB60px.png" 
 }
+
+class EnemigoJefe inherits Enemigo{
+    var vida = 3
+    method image() = "jefeB200px.png"
+
+    override method quitarVida(unDisparo) {
+        if (vida == 0)
+            self.eliminar()
+        else
+            self.bajarVida()
+    }
+
+    method bajarVida() {
+        vida = 0.min(vida - 1)
+    }
+
+}
