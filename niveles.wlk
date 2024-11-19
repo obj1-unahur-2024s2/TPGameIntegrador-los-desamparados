@@ -28,7 +28,7 @@ object juego {
 
 
     method nivelUno(){
-        enemigos.agregarFilaDeEnemigos(13)
+        const fila = new FilaDeEnemigosDevil(position = 5, orientacion = right)
         game.onTick(100,"pasarNivel", { //con este on tick esta constantemente preguntando si la lista esta vacia para cambiar al proximo nivel, revisar dado que no se si esta correcto, 
             if (puntuacion == enemigos.size()){ // pero calculo que si es correcto
                 self.nivelDos()
@@ -117,12 +117,11 @@ object juego {
 
 
     method prepararPresentacion(){
-        game.clear()
 		game.title("Galaga")
 	    game.width(14)
 	    game.height(18)
 	    game.boardGround("fondoVacio462px.png")
-	    game.cellSize(42) 
+	    game.cellSize(35) 
 		game.addVisual(imagenInicial)
 	}
 

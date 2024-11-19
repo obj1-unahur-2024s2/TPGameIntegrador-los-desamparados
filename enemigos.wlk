@@ -50,23 +50,17 @@ class EnemigoFuerte inherits Enemigo{
 }
 
 class FilaDeEnemigosDevil inherits Posicionable {
-    const property enemigos = []
-
     method agregarEnemigos(posicionY) {
-        enemigos.add(new EnemigoDevil(position = game.at(2,posicionY), orientacion = right))
-        enemigos.add(new EnemigoDevil(position = game.at(3,posicionY), orientacion = right))
-        enemigos.add(new EnemigoDevil(position = game.at(4,posicionY), orientacion = right))
-        enemigos.add(new EnemigoDevil(position = game.at(5,posicionY), orientacion = right))
-        enemigos.add(new EnemigoDevil(position = game.at(6,posicionY), orientacion = right))
-    }
-    method agregarFilaDeEnemigos(posicionY) {
-        self.agregarEnemigos(posicionY)
-        enemigos.forEach({e => 
+        juego.enemigos.add(new EnemigoDevil(position = game.at(2,posicionY), orientacion = right))
+        juego.enemigos.add(new EnemigoDevil(position = game.at(3,posicionY), orientacion = right))
+        juego.enemigos.add(new EnemigoDevil(position = game.at(4,posicionY), orientacion = right))
+        juego.enemigos.add(new EnemigoDevil(position = game.at(5,posicionY), orientacion = right))
+        juego.enemigos.add(new EnemigoDevil(position = game.at(6,posicionY), orientacion = right))
+        juego.enemigos.forEach({e => 
             game.addVisual(e)
             e.inicializar()  
         })
     }
-    
 }
 
 class FilaDeEnemigosMedios inherits FilaDeEnemigosDevil{
