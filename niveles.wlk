@@ -22,13 +22,11 @@ object juego {
 
     method iniciarJuego() {
         self.prepararNivel()
-        self.nivelUno()
-    }
-
-
-
-    method nivelUno(){
-        const fila = new FilaDeEnemigosDevil(position = 5, orientacion = right)
+        self.agregarEnemigos()
+        enemigos.forEach({e => 
+            game.addVisual(e)
+            e.inicializar()
+        })
         game.onTick(100,"pasarNivel", { //con este on tick esta constantemente preguntando si la lista esta vacia para cambiar al proximo nivel, revisar dado que no se si esta correcto, 
             if (puntuacion == enemigos.size()){ // pero calculo que si es correcto
                 self.nivelDos()
@@ -36,6 +34,12 @@ object juego {
                 }
             }
         )
+    }
+
+
+
+    method nivelUno(){
+        
     }
 
 
@@ -57,7 +61,6 @@ object juego {
     method puntuacion() = puntuacion
 
     method nivelDos() {
-        enemigos.clear()
         game.onTick(100,"final", {
             if (puntuacion == enemigos.size()){
                 game.clear()
@@ -71,7 +74,16 @@ object juego {
         })
     }
 
-
+    method agregarEnemigos() {
+        enemigos.add(new EnemigoMediano(position = game.at(2,13), orientacion = right))
+        enemigos.add(new EnemigoFuerte(position = game.at(12,12), orientacion= left))
+        enemigos.add(new EnemigoDevil(position = game.at(5,11), orientacion=right))
+        enemigos.add(new EnemigoMediano(position = game.at(7,10), orientacion=left))
+        enemigos.forEach({e => 
+            game.addVisual(e)
+            e.inicializar()  
+        })
+    }
 
 
 
@@ -126,7 +138,6 @@ object juego {
 	}
 
     method prepararNivel() {
-        game.clear()
         game.title("Galaga")
 	    game.width(14)
 	    game.height(18)
@@ -134,9 +145,7 @@ object juego {
 	    game.cellSize(42)
         self.sonidoInicio()
         game.addVisual(nave)
+        self.configurarTeclas()
     }
-
-
-
 
 }

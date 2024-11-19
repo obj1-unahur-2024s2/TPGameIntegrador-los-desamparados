@@ -25,6 +25,7 @@ El juego Galaga hecho con Wollok-Game. El jugador controla una nave que debe enf
 
 ## Reglas del Juego / Instrucciones
 
+- Al iniciar el juego presionar "Enter" para comenzar.
 - El avión se desplaza hacia la derecha presionando la tecla "d" y hacia la izquierda presionando la tecla "a".
 - El avión dispara al enemigo presionando la tecla "w".
 
