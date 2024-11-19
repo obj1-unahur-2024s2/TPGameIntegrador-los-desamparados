@@ -2,31 +2,48 @@ import wollok.game.*
 import player.*
 import enemigos.*
 import posicionable.*
-
+import visuales.*
 
 // cuando se crean los enemigos, se ingresan a la lista de enemigos. lo que habria que hacer es que a medida que se van eliminando los enemigos, la lista se valla vaciando y cuando la lista
 // esta vacia ahi que cambie el siguiente nivel.
-object nivelUno {
+
+
+object juego {
     const property enemigos = []
-  
-    method inicializar(){
-        self.sonidoInicio()
-        game.addVisual(nave)
-        self.agregarEnemigos()
-        self.configurarTeclas()
-        game.onTick(100,"pasarNivel", { //con este on tick esta constantemente preguntando si la lista esta vacia para cambiar al proximo nivel, revisar dado que no se si esta correcto, 
-            if (self.enemigodEliminados()){ // pero calculo que si es correcto
-            nivelDos.inicializar()
-            game.removeTickEvent("pasarNivel")
-            }
+    var puntuacion = 0
+    
+    method presentarMenu() {
+        self.prepararPresentacion()
+        keyboard.enter().onPressDo({
+            game.removeVisual(imagenInicial)
+            self.iniciarJuego()
         })
     }
 
+    method iniciarJuego() {
+        self.prepararNivel()
+        self.nivelUno()
+    }
+
+
+    method nivelUno(){
+        self.agregar
+        game.onTick(100,"pasarNivel", { //con este on tick esta constantemente preguntando si la lista esta vacia para cambiar al proximo nivel, revisar dado que no se si esta correcto, 
+            if (puntuacion == enemigos.size()){ // pero calculo que si es correcto
+                self.nivelDos()
+                game.removeTickEvent("pasarNivel")
+                }
+            }
+        )
+    }
+
     method agregarEnemigos() {
+        const enemigoDevil = 
         enemigos.add(new EnemigoMediano(position = game.at(2,13), orientacion = right))
         enemigos.add(new EnemigoFuerte(position = game.at(12,12), orientacion= left))
         enemigos.add(new EnemigoDevil(position = game.at(5,11), orientacion=right))
         enemigos.add(new EnemigoMediano(position = game.at(7,10), orientacion=left))
+        enemigos.add(new EnemigoDevil(position = game.at(5,9), orientacion=right))
         enemigos.forEach({e => 
             game.addVisual(e)
             e.inicializar()  
@@ -44,16 +61,93 @@ object nivelUno {
 		inicio.play()
 		inicio.volume(0.5)
 	}
-    method eliminarEnemigo(unEnemigo){ // aca habria que configurar o ver cual es la instancia de enemigo creada al momento que el disparo le pega para eliminarlo de la lista!!
-        enemigos.remove(unEnemigo)     // nose si se puede poner enemigos.remove().first() que es para que elimine el primer enemigo de la lista
-    }
-    method enemigodEliminados(){
-        return enemigos.size() == 0
-    }
-}
 
-object nivelDos {
-    method inicializar(){
-
+    method aumentarPuntuacion(){
+        puntuacion += 1
     }
+    method puntuacion() = puntuacion
+
+    method nivelDos() {
+        enemigos.clear()
+        self.agregarEnemigos()    
+        game.onTick(100,"final", {
+            if (puntuacion == enemigos.size()){
+                game.clear()
+                game.title("Galaga")
+	            game.width(14)
+	            game.height(18)
+	            game.boardGround("gameOver462px.png")
+	            game.cellSize(42) 
+                game.removeTickEvent("final")
+            }
+        })
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    method prepararPresentacion(){
+		game.title("Galaga")
+	    game.width(14)
+	    game.height(18)
+	    game.boardGround("fondoVacio462px.png")
+	    game.cellSize(42) 
+		game.addVisual(imagenInicial)
+	}
+
+    method prepararNivel() {
+        game.title("Galaga")
+	    game.width(14)
+	    game.height(18)
+	    game.boardGround("fondoVacio462px.png")
+	    game.cellSize(42)
+        self.sonidoInicio()
+        game.addVisual(nave)
+    }
+
+
+
+
 }

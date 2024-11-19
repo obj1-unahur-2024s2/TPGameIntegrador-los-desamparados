@@ -4,6 +4,7 @@ import enemigos.*
 import niveles.*
 
 program GalagaGame {
+	
 	game.title("Galaga")
 	game.width(14)
 	game.height(18)

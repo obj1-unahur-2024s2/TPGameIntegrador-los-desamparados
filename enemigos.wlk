@@ -25,7 +25,7 @@ class Enemigo inherits Posicionable{
         game.removeVisual(self)
         game.removeTickEvent(eventName)
         self.sonidoMuerte()
-        nivelUno.eliminarEnemigo(self) //esto lo que hace es eliminar al enemigo de la lista
+        nivelUno.aumentarPuntuacion() //esto lo que hace es eliminar al enemigo de la lista
     }
 
     method sonidoMuerte(){	
@@ -47,4 +47,57 @@ class EnemigoMediano inherits Enemigo{
 
 class EnemigoFuerte inherits Enemigo{
     method image() = "enemigoB60px.png" 
+}
+
+class FilaDeEnemigosDevil inherits Enemigo {
+    const property enemigos = []
+
+    method agregarEnemigos(posicionY) {
+        enemigos.add(new EnemigoDevil(position = game.at(2,posicionY), orientacion = right))
+        enemigos.add(new EnemigoDevil(position = game.at(3,posicionY), orientacion = right))
+        enemigos.add(new EnemigoDevil(position = game.at(4,posicionY), orientacion = right))
+        enemigos.add(new EnemigoDevil(position = game.at(5,posicionY), orientacion = right))
+        enemigos.add(new EnemigoDevil(position = game.at(6,posicionY), orientacion = right))
+    }
+    method agregarFilaDeEnemigos(posicionY) {
+        self.agregarEnemigos(posicionY)
+        enemigos.forEach({e => 
+            game.addVisual(e)
+            e.inicializar()  
+        })
+    }
+}
+
+class FilaDeEnemigosMedios inherits FilaDeEnemigosDevil{
+    override method agregarEnemigos(posicionY) {
+        enemigos.add(new EnemigoMediano(position = game.at(2,posicionY), orientacion = right))
+        enemigos.add(new EnemigoMediano(position = game.at(3,posicionY), orientacion = right))
+        enemigos.add(new EnemigoMediano(position = game.at(4,posicionY), orientacion = right))
+        enemigos.add(new EnemigoMediano(position = game.at(5,posicionY), orientacion = right))
+        enemigos.add(new EnemigoMediano(position = game.at(6,posicionY), orientacion = right))
+    }
+    override method agregarFilaDeEnemigos(posicionY) {
+        self.agregarEnemigos(posicionY)
+        enemigos.forEach({e => 
+            game.addVisual(e)
+            e.inicializar()  
+        })
+    }
+}
+
+class FilaDeEnemigosFuertes inherits FilaDeEnemigosDevil{
+    override method agregarEnemigos(posicionY) {
+        enemigos.add(new EnemigoFuerte(position = game.at(2,posicionY), orientacion = right))
+        enemigos.add(new EnemigoFuerte(position = game.at(3,posicionY), orientacion = right))
+        enemigos.add(new EnemigoFuerte(position = game.at(4,posicionY), orientacion = right))
+        enemigos.add(new EnemigoFuerte(position = game.at(5,posicionY), orientacion = right))
+        enemigos.add(new EnemigoFuerte(position = game.at(6,posicionY), orientacion = right))
+    }
+    override method agregarFilaDeEnemigos(posicionY) {
+        self.agregarEnemigos(posicionY)
+        enemigos.forEach({e => 
+            game.addVisual(e)
+            e.inicializar()  
+        })
+    }
 }
