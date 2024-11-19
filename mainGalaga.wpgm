@@ -4,13 +4,7 @@ import enemigos.*
 import niveles.*
 
 program GalagaGame {
-	
-	game.title("Galaga")
-	game.width(14)
-	game.height(18)
-	game.boardGround("fondoVacio462px.png")
-	game.cellSize(42) 
-	nivelUno.inicializar()
+	juego.presentarMenu()
 	keyboard.space().onPressDo(	{ 
 		game.stop()
 	})

@@ -49,7 +49,7 @@ class EnemigoFuerte inherits Enemigo{
     method image() = "enemigoB60px.png" 
 }
 
-class FilaDeEnemigosDevil inherits Enemigo {
+class FilaDeEnemigosDevil inherits Posicionable {
     const property enemigos = []
 
     method agregarEnemigos(posicionY) {
@@ -66,6 +66,7 @@ class FilaDeEnemigosDevil inherits Enemigo {
             e.inicializar()  
         })
     }
+    
 }
 
 class FilaDeEnemigosMedios inherits FilaDeEnemigosDevil{
