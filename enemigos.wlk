@@ -4,7 +4,7 @@ import niveles.*
 import posicionable.*
 
 class Enemigo inherits Posicionable{
-
+    var alternar = false
     const eventName = "EvenName-" + (0..100).anyOne()
     method inicializar(){
         game.onCollideDo(self, { disparo => 
@@ -20,7 +20,7 @@ class Enemigo inherits Posicionable{
     method quitarVida(unDisparo) {
         self.eliminar()
     }
-    
+
     method eliminar(){
         game.removeVisual(self)
         game.removeTickEvent(eventName)
@@ -67,14 +67,13 @@ class EnemigoJefe inherits Enemigo{
     }
 
     method movimiento(){ // se creo el metodo para que se mueva el jefe
-        game.onTick(1000, eventName, {
-            game.removeVisual(image)
-            if (image == "jefeA200px.png"){
-                image = "jefeB200px.png"
-            }else{
-                image = "jefeA200px.png"
-            }
-            game.addVisual(image)
+        game.onTick(400, eventName, {
+            self.siguienteImagen()
         })
+    }
+
+    method siguienteImagen(){
+        alternar = !alternar
+        image = if(alternar){"jefeB200px.png"} else {"jefeA200px.png"}
     }
 }
