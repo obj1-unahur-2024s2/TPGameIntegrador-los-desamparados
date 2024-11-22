@@ -90,6 +90,7 @@ object juego {
         self.agregarJefes()
         enemigos.forEach({e => 
             game.addVisual(e)
+            e.movimiento() // se agrego los movimientos al jefe
             e.inicializar()
         })
         game.onTick(100,"final", { 

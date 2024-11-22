@@ -16,16 +16,16 @@ class Enemigo inherits Posicionable{
         })
 
     }
-  
+
     method quitarVida(unDisparo) {
         self.eliminar()
     }
- 
+    
     method eliminar(){
         game.removeVisual(self)
         game.removeTickEvent(eventName)
         self.sonidoMuerte()
-        juego.aumentarPuntuacion() //esto lo que hace es eliminar al enemigo de la lista
+        juego.aumentarPuntuacion()
     }
 
     method sonidoMuerte(){	
@@ -51,17 +51,30 @@ class EnemigoFuerte inherits Enemigo{
 
 class EnemigoJefe inherits Enemigo{
     var vida = 5
-    method image() = "jefeB200px.png"
+    var property image = "jefeB200px.png" // se cambio el metodo image() por un var property
 
     override method quitarVida(unDisparo) {
-        if (vida == 0)
+        if (vida == 0){
             self.eliminar()
-        else
+            game.removeTickEvent(eventName) // se agrego el removedor de tick
+        }else{
             self.bajarVida()
+        }
     }
 
     method bajarVida() {
         vida = 0.min(vida - 1)
     }
 
+    method movimiento(){ // se creo el metodo para que se mueva el jefe
+        game.onTick(1000, eventName, {
+            game.removeVisual(image)
+            if (image == "jefeA200px.png"){
+                image = "jefeB200px.png"
+            }else{
+                image = "jefeA200px.png"
+            }
+            game.addVisual(image)
+        })
+    }
 }
