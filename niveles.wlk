@@ -17,7 +17,7 @@ object juego {
     }
 
     method digitos(unNumero) { // este metodo lo paso el profesor para podes poner el puntaje
-        return (0.. unNumero.digits()-1).map({ index => unNumero.toString().charAt(index) + ".jgp" })
+        return (0.. unNumero.digits()-1).map({ index => unNumero.toString().charAt(index) + ".png" })
     }
 
     method iniciarJuego() {
