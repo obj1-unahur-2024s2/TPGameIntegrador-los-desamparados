@@ -73,9 +73,6 @@ object juego {
 	    game.boardGround("fondoVacio462px.png")
 	    game.cellSize(35) 
 		game.addVisual(imagenInicial)
-        game.addVisual(pos1)
-        game.addVisual(pos2)
-        game.addVisual(pos3)
 	}
 
     method prepararNivel() {
@@ -87,6 +84,9 @@ object juego {
         self.sonidoInicio()
         game.addVisual(nave)
         self.configurarTeclas()
+        game.addVisual(pos1)
+        game.addVisual(pos2)
+        game.addVisual(pos3)
     }
 
     method IniciarSegundoNivel() { 
@@ -115,5 +115,8 @@ object juego {
 	    game.boardGround("fondoVacio462px.png")
 	    game.cellSize(42)
         game.addVisual(imagenFinal)
+        game.addVisual(pos1)
+        game.addVisual(pos2)
+        game.addVisual(pos3)
     }
 }
