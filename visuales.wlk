@@ -5,7 +5,7 @@ object imagenInicial {
 
 object imagenFinal {
     var property position = game.at(0,0)
-	var property image = "gameOver462px.png"
+	var property image = "imagenFinal462px.png"
 }
 
 object pos1 {
