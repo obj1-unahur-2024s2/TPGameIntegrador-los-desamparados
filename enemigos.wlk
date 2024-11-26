@@ -3,20 +3,25 @@ import player.*
 import wollok.game.*
 import niveles.*
 import posicionable.*
+import puntuaciones.*
+
 
 class Enemigo inherits Posicionable{
-    var property image 
+    var property image
     const eventName = "EvenName-" + (0..100).anyOne()
     method inicializar(){
-        game.onCollideDo(self, { disparo => 
-            //self.muerte()
-            self.quitarVida(disparo) 
+        game.onCollideDo(self, { disparo =>
+            juego.puntuacionTotal(juego.puntuacionTotal() + self.puntuacion())
+            puntaje.mostrarPuntaje(juego.puntuacionTotal()).forEach({p => game.addVisual(p)})
+            self.quitarVida(disparo)
             disparo.eliminarDisparo()
         })
         game.onTick(300, eventName, {
             self.moverse()
         })
     }
+
+    method  puntuacion()
 
     method quitarVida(unDisparo) { 
         self.eliminar()
@@ -47,21 +52,25 @@ class Enemigo inherits Posicionable{
 
 class EnemigoDevil inherits Enemigo(image= "enemigo60px.png"){
     //method image() = "enemigo60px.png" 
-
+    override method  puntuacion() = 30
 }
 
 class EnemigoMediano inherits Enemigo(image= "enemigoA60px.png"){
     //method image() = "enemigoA60px.png" 
+    override method  puntuacion() = 70
 }
 
 class EnemigoFuerte inherits Enemigo(image= "enemigoB60px.png"){
     //method image() = "enemigoB60px.png" 
+    override method  puntuacion() = 100
 }
 
 class EnemigoJefe inherits Enemigo(image= "jefeB200px.png"){
     var alternar = false
     var vida = 5
     //var property image = "jefeB200px.png" 
+
+    override method  puntuacion() = 150
 
     override method quitarVida(unDisparo) {
         if (vida == 0){

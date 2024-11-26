@@ -6,8 +6,8 @@ import visuales.*
 
 object juego {
     const property enemigos = []
-    var puntuacion = 0
-    
+    var contMuertes = 0
+    var property puntuacionTotal = 0
     method presentarMenu() {
         self.prepararPresentacion()
         keyboard.enter().onPressDo({
@@ -15,16 +15,14 @@ object juego {
             self.iniciarJuego()
         })
     }
-
-    method digitos(unNumero) { // este metodo lo paso el profesor para podes poner el puntaje
+    method digitos(unNumero) {
         return (0.. unNumero.digits()-1).map({ index => unNumero.toString().charAt(index) + ".png" })
     }
-
     method iniciarJuego() {
         self.prepararNivel()
         self.agregarEnemigos()
         game.onTick(100,"pasarNivel", { 
-            if (puntuacion == enemigos.size()){ 
+            if (contMuertes == enemigos.size()){ 
                 self.IniciarSegundoNivel()
                 game.removeTickEvent("pasarNivel")
                 }
@@ -46,10 +44,10 @@ object juego {
 	}
 
     method aumentarPuntuacion(){
-        puntuacion += 1
+        contMuertes += 1
     }
 
-    method puntuacion() = puntuacion
+    method puntuacion() = contMuertes
 
     method agregarEnemigos() {
         enemigos.add(new EnemigoMediano(position = game.at(2,13), orientacion = right))
@@ -90,7 +88,7 @@ object juego {
 
     method IniciarSegundoNivel() { 
         enemigos.clear()
-        puntuacion = 0
+        contMuertes = 0
         self.agregarJefes()
         enemigos.forEach({e => 
             game.addVisual(e)
@@ -98,7 +96,7 @@ object juego {
             e.inicializar()
         })
         game.onTick(100,"final", { 
-            if (puntuacion == enemigos.size()){ 
+            if (contMuertes == enemigos.size()){ 
                 self.mostrarFinal()
                 game.removeTickEvent("final")
                 }
