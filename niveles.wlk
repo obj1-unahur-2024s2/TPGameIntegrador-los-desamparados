@@ -73,6 +73,9 @@ object juego {
 	    game.boardGround("fondoVacio462px.png")
 	    game.cellSize(35) 
 		game.addVisual(imagenInicial)
+        game.addVisual(pos1)
+        game.addVisual(pos2)
+        game.addVisual(pos3)
 	}
 
     method prepararNivel() {

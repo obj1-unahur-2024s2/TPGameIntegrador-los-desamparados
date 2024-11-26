@@ -12,7 +12,8 @@ class Enemigo inherits Posicionable{
     method inicializar(){
         game.onCollideDo(self, { disparo =>
             juego.puntuacionTotal(juego.puntuacionTotal() + self.puntuacion())
-            puntaje.mostrarPuntaje(juego.puntuacionTotal()).forEach({p => game.addVisual(p)})
+            //puntaje.mostrarPuntaje(juego.puntuacionTotal()).forEach({p => game.addVisual(p)})
+            puntaje.nuevaPuntuacion(juego.puntuacionTotal())
             self.quitarVida(disparo)
             disparo.eliminarDisparo()
         })
@@ -21,7 +22,7 @@ class Enemigo inherits Posicionable{
         })
     }
 
-    method  puntuacion()
+    method puntuacion()
 
     method quitarVida(unDisparo) { 
         self.eliminar()
@@ -43,7 +44,7 @@ class Enemigo inherits Posicionable{
 
     method muerte(){
         image = "colision60px.png"
-        game.onTick(230, "muerte", {
+        game.onTick(200, "muerte", {
             game.removeVisual(self)
             game.removeTickEvent("muerte")
         })
@@ -52,17 +53,17 @@ class Enemigo inherits Posicionable{
 
 class EnemigoDevil inherits Enemigo(image= "enemigo60px.png"){
     //method image() = "enemigo60px.png" 
-    override method  puntuacion() = 30
+    override method  puntuacion() = 10
 }
 
 class EnemigoMediano inherits Enemigo(image= "enemigoA60px.png"){
     //method image() = "enemigoA60px.png" 
-    override method  puntuacion() = 70
+    override method  puntuacion() = 20
 }
 
 class EnemigoFuerte inherits Enemigo(image= "enemigoB60px.png"){
     //method image() = "enemigoB60px.png" 
-    override method  puntuacion() = 100
+    override method  puntuacion() = 40
 }
 
 class EnemigoJefe inherits Enemigo(image= "jefeB200px.png"){
@@ -70,7 +71,7 @@ class EnemigoJefe inherits Enemigo(image= "jefeB200px.png"){
     var vida = 5
     //var property image = "jefeB200px.png" 
 
-    override method  puntuacion() = 150
+    override method  puntuacion() = 70
 
     override method quitarVida(unDisparo) {
         if (vida == 0){
