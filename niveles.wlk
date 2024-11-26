@@ -71,7 +71,7 @@ object juego {
 	    game.width(14)
 	    game.height(18)
 	    game.boardGround("fondoVacio462px.png")
-	    game.cellSize(35) 
+	    game.cellSize(33) 
 		game.addVisual(imagenInicial)
 	}
 
@@ -80,7 +80,7 @@ object juego {
 	    game.width(14)
 	    game.height(18)
 	    game.boardGround("fondoVacio462px.png")
-	    game.cellSize(42)
+	    game.cellSize(33)
         self.sonidoInicio()
         game.addVisual(nave)
         self.configurarTeclas()
@@ -110,13 +110,13 @@ object juego {
     method mostrarFinal() {
         game.clear()
         game.title("Galaga")
-	    game.width(20)
-	    game.height(25)
+	    game.width(14)
+	    game.height(18)
 	    game.boardGround("fondoVacio462px.png")
-	    game.cellSize(42)
+	    game.cellSize(33)
         game.addVisual(imagenFinal)
-        game.addVisual(pos1)
-        game.addVisual(pos2)
-        game.addVisual(pos3)
+        game.addVisual(pos1.ubicacionFinal())
+        game.addVisual(pos2.ubicacionFinal())
+        game.addVisual(pos3.ubicacionFinal())
     }
 }
